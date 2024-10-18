@@ -9,7 +9,7 @@ public interface EmpleadoInterface {
 
     public Optional<Empleado> listaEmpleadoById(Long id);
 
-    public int save(Empleado e);
+    public int save(Empleado empleado);
 
     public void delete(Long id);
 }

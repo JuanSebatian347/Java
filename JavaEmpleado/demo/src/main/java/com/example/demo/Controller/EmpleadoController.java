@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.Entity.Empleado;
 import com.example.demo.Entity.Rol;
+import com.example.demo.Services.EmpleadoServices;
 import com.example.demo.ServicesInterfaces.EmpleadoInterface;
 import com.example.demo.ServicesInterfaces.RolInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -28,19 +30,26 @@ public class EmpleadoController {
         model.addAttribute("empleados", empleadoServiceImplements.listaEmpleados());
         return "index";
     }
+    @GetMapping("/")
+    public String listarEmpleados(Model model) {
+        List<Empleado> empleados = EmpleadoServices.();
+        model.addAttribute("empleados", empleados);
+        return "EmpleadosList";
+    }
+
     // metodo para save
     @GetMapping("/save")
     public String saveEmpleado(@Validated Empleado empleado, Model model) {
         empleadoServiceImplements.save(empleado);
         return "redirect:empleados";
-        }
+    }
+
     // metodo para actualizar
     @GetMapping("/editarEmpleado{id}")
-    public String editarEmpleado(@PathVariable int id, ModelMap model) {
-        Optional<Empleado> empleado=empleadoServiceImplements.listaEmpleadoById(id);
+    public String editarEmpleado(@PathVariable long id, Model model) {
+        Optional<Empleado> empleado = empleadoServiceImplements.listaEmpleadoById(id);
         model.addAttribute("empleado", empleado);
 
-        Optional<Rol> roles=rolServiceImplements
         return "editarEmpleado";
-        }
+    }
 }

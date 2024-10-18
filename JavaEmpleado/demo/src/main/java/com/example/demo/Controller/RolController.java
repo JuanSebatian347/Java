@@ -15,7 +15,6 @@ public class RolController {
     private RolInterface rolServiceImplements;
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("empleados", empleadoServiceImplements.listaEmpleados());
         model.addAttribute("roles", rolServiceImplements.listaRoles());
         return "index";
     }
